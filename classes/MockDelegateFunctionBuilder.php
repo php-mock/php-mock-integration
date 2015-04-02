@@ -21,11 +21,6 @@ class MockDelegateFunctionBuilder
     const METHOD = "delegate";
     
     /**
-     * @var int The instance counter.
-     */
-    private static $counter = 0;
-    
-    /**
      * @var string The namespace of the build class.
      */
     private $namespace;
@@ -52,16 +47,23 @@ class MockDelegateFunctionBuilder
      */
     public function build($functionName = null)
     {
-        self::$counter++;
-        
-        $this->namespace = __NAMESPACE__ . self::$counter;
-        
         $parameterBuilder = new ParameterBuilder();
         $parameterBuilder->build($functionName);
+        $signatureParameters = $parameterBuilder->getSignatureParameters();
+
+        /**
+         * If a class with the same signature exists, it is considered equivalent
+         * to the generated class.
+         */
+        $hash = md5($signatureParameters);
+        $this->namespace = __NAMESPACE__.$hash;
+        if (class_exists($this->getFullyQualifiedClassName())) {
+            return;
+        }
         
         $data = [
-            "namespace" => $this->namespace,
-            "signatureParameters" => $parameterBuilder->getSignatureParameters(),
+            "namespace"           => $this->namespace,
+            "signatureParameters" => $signatureParameters,
         ];
         $this->template->setVar($data, false);
         $definition = $this->template->render();
