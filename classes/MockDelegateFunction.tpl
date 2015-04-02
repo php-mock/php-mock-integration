@@ -1,6 +1,6 @@
 namespace {namespace};
 
-use malkusch\phpmock\functions\FunctionProvider;
+use phpmock\functions\FunctionProvider;
 
 /**
  * Function provider which delegates to a mockable MockDelegate.

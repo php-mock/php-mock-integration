@@ -2,7 +2,7 @@
 
 namespace phpmock\integration;
 
-use malkusch\phpmock\ParameterBuilder;
+use phpmock\ParameterBuilder;
 
 /**
  * Defines a MockDelegateFunction.
