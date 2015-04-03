@@ -93,4 +93,31 @@ class MockDelegateFunctionBuilderTest extends \PHPUnit_Framework_TestCase
             []
         ];
     }
+
+    /**
+     * Tests deserialization.
+     *
+     * @test
+     * @runInSeparateProcess
+     * @dataProvider provideTestDeserializationInNewProcess
+     */
+    public function testDeserializationInNewProcess($data)
+    {
+        unserialize($data);
+    }
+    
+    /**
+     * Returns test cases for testDeserializationInNewProcess().
+     *
+     * @return array Test cases.
+     */
+    public function provideTestDeserializationInNewProcess()
+    {
+        $builder = new MockDelegateFunctionBuilder();
+        $builder->build("min");
+        
+        return [
+            [serialize($this->getMockForAbstractClass($builder->getFullyQualifiedClassName()))]
+        ];
+    }
 }
