@@ -18,7 +18,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "php-mock/php-mock": "^1",
+        "php-mock/php-mock": "^2",
         "phpunit/php-text-template": "^1"
     },
     "require-dev": {
