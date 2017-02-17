@@ -17,7 +17,7 @@
         "psr-4": {"phpmock\\integration\\": "classes/"}
     },
     "require": {
-        "php": ">=5.5",
+        "php": ">=5.6",
         "php-mock/php-mock": "^2",
         "phpunit/php-text-template": "^1"
     },
