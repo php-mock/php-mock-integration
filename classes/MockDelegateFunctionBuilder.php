@@ -56,7 +56,7 @@ class MockDelegateFunctionBuilder
          * If a class with the same signature exists, it is considered equivalent
          * to the generated class.
          */
-        $hash = md5($signatureParameters);
+        $hash = md5(is_string($signatureParameters) ? $signatureParameters : '');
         $this->namespace = __NAMESPACE__ . $hash;
         if (class_exists($this->getFullyQualifiedClassName())) {
             return;
