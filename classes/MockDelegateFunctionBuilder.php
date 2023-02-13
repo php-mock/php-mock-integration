@@ -49,7 +49,7 @@ class MockDelegateFunctionBuilder
     public function build($functionName = null)
     {
         $parameterBuilder = new ParameterBuilder();
-        $parameterBuilder->build($functionName);
+        $parameterBuilder->build($functionName === null ? '' : $functionName);
         $signatureParameters = $parameterBuilder->getSignatureParameters();
 
         /**
