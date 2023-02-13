@@ -89,7 +89,7 @@ class MockDelegateFunctionBuilderTest extends TestCase
      *
      * @return array Test cases.
      */
-    public function provideTestBackupStaticAttributes()
+    public static function provideTestBackupStaticAttributes()
     {
         return [
             [],
