@@ -116,7 +116,7 @@ class MockDelegateFunctionBuilderTest extends TestCase
      *
      * @return array Test cases.
      */
-    public function provideTestDeserializationInNewProcess()
+    public static function provideTestDeserializationInNewProcess()
     {
         $builder = new MockDelegateFunctionBuilder();
         $builder->build("min");
