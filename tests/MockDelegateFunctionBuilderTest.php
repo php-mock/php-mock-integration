@@ -17,8 +17,6 @@ class MockDelegateFunctionBuilderTest extends TestCase
 
     /**
      * Test build() defines a class.
-     *
-     * @test
      */
     public function testBuild()
     {
@@ -29,8 +27,6 @@ class MockDelegateFunctionBuilderTest extends TestCase
 
     /**
      * Test build() would never create the same class name for different signatures.
-     *
-     * @test
      */
     public function testDiverseSignaturesProduceDifferentClasses()
     {
@@ -53,8 +49,6 @@ class MockDelegateFunctionBuilderTest extends TestCase
 
     /**
      * Test build() would create the same class name for identical signatures.
-     *
-     * @test
      */
     public function testSameSignaturesProduceSameClass()
     {
@@ -72,7 +66,6 @@ class MockDelegateFunctionBuilderTest extends TestCase
     /**
      * Tests declaring a class with enabled backupStaticAttributes.
      *
-     * @test
      * @backupStaticAttributes enabled
      * @dataProvider provideTestBackupStaticAttributes
      *
@@ -100,29 +93,17 @@ class MockDelegateFunctionBuilderTest extends TestCase
     /**
      * Tests deserialization.
      *
-     * @test
      * @runInSeparateProcess
-     * @dataProvider provideTestDeserializationInNewProcess
      *
      * @doesNotPerformAssertions
      */
-    public function testDeserializationInNewProcess($data)
-    {
-        unserialize($data);
-    }
-    
-    /**
-     * Returns test cases for testDeserializationInNewProcess().
-     *
-     * @return array Test cases.
-     */
-    public static function provideTestDeserializationInNewProcess()
+    public function testDeserializationInNewProcess()
     {
         $builder = new MockDelegateFunctionBuilder();
         $builder->build("min");
+
+        $data = serialize($this->getMockForAbstractClass($builder->getFullyQualifiedClassName()));
         
-        return [
-            [serialize($this->getMockForAbstractClass($builder->getFullyQualifiedClassName()))]
-        ];
+        unserialize($data);
     }
 }
