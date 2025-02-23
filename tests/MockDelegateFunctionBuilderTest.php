@@ -71,6 +71,9 @@ class MockDelegateFunctionBuilderTest extends TestCase
      *
      * @doesNotPerformAssertions
      */
+    #[\PHPUnit\Framework\Attributes\DoesNotPerformAssertions]
+    #[\PHPUnit\Framework\Attributes\DataProvider('provideTestBackupStaticAttributes')]
+    #[\PHPUnit\Framework\Attributes\BackupStaticProperties(true)]
     public function testBackupStaticAttributes()
     {
         $builder = new MockDelegateFunctionBuilder();
@@ -97,12 +100,14 @@ class MockDelegateFunctionBuilderTest extends TestCase
      *
      * @doesNotPerformAssertions
      */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
+    #[\PHPUnit\Framework\Attributes\DoesNotPerformAssertions]
     public function testDeserializationInNewProcess()
     {
         $builder = new MockDelegateFunctionBuilder();
         $builder->build("min");
 
-        $data = serialize($this->getMockForAbstractClass($builder->getFullyQualifiedClassName()));
+        $data = serialize($this->getMockBuilder($builder->getFullyQualifiedClassName())->getMock());
         
         unserialize($data);
     }

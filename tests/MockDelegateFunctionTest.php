@@ -35,10 +35,13 @@ class MockDelegateFunctionTest extends TestCase
      *
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function testDelegateReturnsMockResult()
     {
         $expected = 3;
-        $mock     = $this->getMockForAbstractClass($this->className);
+        $mock     = $this->getMockBuilder($this->className)
+            ->onlyMethods([MockDelegateFunctionBuilder::METHOD])
+            ->getMock();
         
         $mock->expects($this->once())
              ->method(MockDelegateFunctionBuilder::METHOD)
@@ -53,14 +56,17 @@ class MockDelegateFunctionTest extends TestCase
      *
      * @test
      */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function testDelegateForwardsArguments()
     {
-        $mock = $this->getMockForAbstractClass($this->className);
-        
+        $mock     = $this->getMockBuilder($this->className)
+            ->onlyMethods([MockDelegateFunctionBuilder::METHOD])
+            ->getMock();
+
         $mock->expects($this->once())
              ->method(MockDelegateFunctionBuilder::METHOD)
              ->with(1, 2);
-        
+
         call_user_func($mock->getCallable(), 1, 2);
     }
 }
