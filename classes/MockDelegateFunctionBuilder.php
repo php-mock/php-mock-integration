@@ -48,17 +48,17 @@ class MockDelegateFunctionBuilder
      */
     public function build($functionName = null)
     {
-        $parameterBuilder = new ParameterBuilder();
-        $parameterBuilder->build($functionName === null ? '' : $functionName);
-        $signatureParameters = $parameterBuilder->getSignatureParameters();
+        $functionNameOrEmptyString = $functionName === null ? '' : $functionName;
 
-        $populatedFunctionName = $functionName === null ? '_dummy' : $functionName;
+        $parameterBuilder = new ParameterBuilder();
+        $parameterBuilder->build($functionNameOrEmptyString);
+        $signatureParameters = $parameterBuilder->getSignatureParameters();
 
         /**
          * If a class with the same signature exists, it is considered equivalent
          * to the generated class.
          */
-        $hash = md5($populatedFunctionName . $signatureParameters);
+        $hash = md5($functionNameOrEmptyString . $signatureParameters);
         $this->namespace = __NAMESPACE__ . $hash;
         if (class_exists($this->getFullyQualifiedClassName())) {
             return;
@@ -67,7 +67,7 @@ class MockDelegateFunctionBuilder
         $data = [
             "namespace"           => $this->namespace,
             "signatureParameters" => $signatureParameters,
-            "functionName"        => $populatedFunctionName,
+            "function"            => $functionName === null ? '' : 'public function ' . $functionName . '() {}',
         ];
         $this->template->setVar($data, false);
         $definition = $this->template->render();

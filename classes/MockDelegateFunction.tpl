@@ -27,7 +27,5 @@ class MockDelegateFunction implements FunctionProvider
         return [$this, "delegate"];
     }
 
-    public function {functionName}()
-    {
-    }
+    {function}
 }
